@@ -58,7 +58,7 @@ def loadFile():
 #returns tuple of the closest bin
 def findNearestBin(locations,inputLat,inputLong):
     min = 948309
-    minTuple = (0,0)
+    minTuple = (0,0) #(lat, long)
     for item in locations:
         distance = calcDistance(inputLat, inputLong,item[0],item[1])
         if distance < min:
@@ -67,10 +67,10 @@ def findNearestBin(locations,inputLat,inputLong):
     return minTuple
             
     
-# display list
-locations = loadFile()
-print(len(locations))
-print(type(float(locations[0][0])))
-print(calcDistance(locations[0][0],locations[0][1],1.391051320483443, 103.9053825116794))
-#to find a way to get input from bot
-print(findNearestBin(locations,locations[3][0],locations[3][1]))
+# # display list
+# locations = loadFile()
+# print(len(locations))
+# print(type(float(locations[0][0])))
+# print(calcDistance(locations[0][0],locations[0][1],1.391051320483443, 103.9053825116794))
+# #to find a way to get input from bot
+# print(findNearestBin(locations,locations[3][0],locations[3][1]))
