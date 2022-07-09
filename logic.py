@@ -29,7 +29,6 @@ def calcDistance(latitude1,longitude1,latitude2,longitude2):
 
 #load file and converts it into a list of tuples, where each tuple contains a latitude and a longitude
 #returns this list
-#TODO: find a way to store the file within the repo rather than using my computer lol
 def loadFile():
     # Get the current working
     # directory (CWD)
