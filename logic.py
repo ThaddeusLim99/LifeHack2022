@@ -1,5 +1,8 @@
 from math import sin, cos, sqrt, atan2, radians
 
+# importing os module
+import os
+
 #calculates the distance between two coordinates
 #distance unit is in km
 def calcDistance(latitude1,longitude1,latitude2,longitude2):
@@ -28,12 +31,16 @@ def calcDistance(latitude1,longitude1,latitude2,longitude2):
 #returns this list
 #TODO: find a way to store the file within the repo rather than using my computer lol
 def loadFile():
-
+    # Get the current working
+    # directory (CWD)
+    cwd = os.getcwd()
+    #print(cwd)
+    
     # empty list to read list from a file
     locations = []
 
     # open file and read the content in a list
-    with open(r'C:/Users/Thaddeus/Downloads/locations.txt', 'r') as fp:
+    with open(cwd + r'\locations.txt', 'r') as fp:
         for line in fp:
             # remove linebreak from a current name
             # linebreak is the last character of each line
@@ -67,4 +74,4 @@ print(len(locations))
 print(type(float(locations[0][0])))
 print(calcDistance(locations[0][0],locations[0][1],1.391051320483443, 103.9053825116794))
 #to find a way to get input from bot
-print(findNearestBin(locations[3][0],locations[3][1]))
+print(findNearestBin(locations,locations[3][0],locations[3][1]))
