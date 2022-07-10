@@ -62,6 +62,8 @@ async def learnMore(update, context):
 #         lst = list(plastic_info.keys())
 #     markup = types.ReplyKeyboardMarkup()
 #     await update.callback_query.message.reply_text(lst, reply_markup=reply_markup)
+async def invalid(update, context):
+    await update.callback_query.message.reply_text("Sorry, this feature is not yet implemented")
 
 
 async def reqLocation(update, context):
@@ -84,6 +86,6 @@ bot.add_handler(CommandHandler("start", start))
 # bot.add_handler(CallbackQueryHandler(getPlastic, pattern="plastic"))
 bot.add_handler(CallbackQueryHandler(reqLocation, pattern="find"))
 bot.add_handler(CallbackQueryHandler(learnMore, pattern="learn"))
-# bot.add_handler(CallbackQueryHandler(infoOptions))
+bot.add_handler(CallbackQueryHandler(invalid))
 bot.add_handler(MessageHandler(filters.LOCATION, handleBin))
 bot.run_polling()
