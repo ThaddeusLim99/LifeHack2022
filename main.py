@@ -14,7 +14,7 @@ BOT_TOKEN = os.getenv('BOT_TOKEN')
 # functions
 
 
-async def hello(update, context):
+async def start(update, context):
     keyboard = [
         [InlineKeyboardButton(
             "Learn more about recycling!", callback_data="learn")],
@@ -80,7 +80,7 @@ bot = ApplicationBuilder().token(BOT_TOKEN).build()
 
 
 # Add handlers
-bot.add_handler(CommandHandler("hello", hello))
+bot.add_handler(CommandHandler("start", start))
 # bot.add_handler(CallbackQueryHandler(getPlastic, pattern="plastic"))
 bot.add_handler(CallbackQueryHandler(reqLocation, pattern="find"))
 bot.add_handler(CallbackQueryHandler(learnMore, pattern="learn"))
