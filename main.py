@@ -4,26 +4,49 @@ from dotenv import load_dotenv
 import json
 import os
 import requests
-import logic, loc
+import logic
+import loc
 
 load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 # functions
-async def hello(update, context):
-    await update.message.reply_text("Hi welcome to GoGreen!")
 
-async def bin(update, context):
+
+async def hello(update, context):
+    keyboard = [
+        [InlineKeyboardButton(
+            "Learn more about recycling!", callback_data="learn")],
+        [InlineKeyboardButton(
+            "Find nearest recycling bin", callback_data="find")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Hi welcome to RecycleMe! What would you like to do?", reply_markup=reply_markup)
+
+
+async def learnMore(update, context):
+    pass
+
+
+async def reqLocation(update, context):
+    await update.callback_query.message.edit_text("Please send us your current location via the attachment!")
+
+
+async def handleBin(update, context):
     # reply nearest bin location
     user_location = update.message.location
-    lat, long = logic.findNearestBin(loc.LOCATIONS, user_location.latitude, user_location.longitude)
+    lat, long = logic.findNearestBin(
+        loc.LOCATIONS, user_location.latitude, user_location.longitude)
     await update.message.reply_location(latitude=lat, longitude=long)
 
 # Building the bot
 bot = ApplicationBuilder().token(BOT_TOKEN).build()
 
+
 # Add handlers
 bot.add_handler(CommandHandler("hello", hello))
-bot.add_handler(MessageHandler(filters.LOCATION, bin))
+bot.add_handler(CallbackQueryHandler(reqLocation, pattern="find"))
+bot.add_handler(CallbackQueryHandler(learnMore, pattern="learn"))
+bot.add_handler(MessageHandler(filters.LOCATION, handleBin))
 bot.run_polling()
